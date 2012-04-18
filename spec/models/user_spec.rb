@@ -10,6 +10,7 @@ describe User do
       :password_confirmation => 'foobar'
     }
   end
+  ###
 
   it 'should create a new instance given a valid attribute' do
     User.create!(@attr)
@@ -59,12 +60,12 @@ describe User do
     user_with_duplicate_email = User.new(@attr)
     user_with_duplicate_email.should_not be_valid
   end
-  
+  ###
   describe "passwords" do
     before(:each) do
       @user = User.new(@attr)
     end
-    
+    ####
     it 'should have a password attribute' do
       User.new(@attr).should respond_to(:password)
     end
@@ -97,6 +98,7 @@ describe User do
       User.new(hash).should_not be_valid
     end
   end
+  ####
   
 
   describe 'password encryption' do
@@ -104,6 +106,7 @@ describe User do
     before(:each) do
       @user = User.create!(@attr)
     end
+    ####
     
     it 'should have an encrypted password attribute' do
       @user.should respond_to(:encrypted_password)
@@ -116,13 +119,14 @@ describe User do
     it 'should have a salt' do
       @user.should respond_to(:salt)
     end
-    
   end
+  ####
   
   describe "has_password? method" do
     before(:each) do
       @user = User.create!(@attr)
-   end
+    end
+    ####
     it 'should exist' do
        @user.should respond_to(:has_password?)
     end
@@ -134,8 +138,8 @@ describe User do
     it 'should return false if the passwords does not  match' do
         @user.has_password?('invalid').should be_false
      end
-    
   end
+  ####
   
     describe 'authenticate method' do
       
@@ -163,7 +167,7 @@ describe User do
         end
         ###
         it "should respond to admin" do
-          @user.should responde_to(:admin)
+          @user.should respond_to(:admin)
         end
         ###
         
@@ -178,4 +182,19 @@ describe User do
     end
   
 end
+
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                 :integer         not null, primary key
+#  name               :string(255)
+#  email              :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  encrypted_password :string(255)
+#  salt               :string(255)
+#  admin              :boolean         default(FALSE)
+#
 
