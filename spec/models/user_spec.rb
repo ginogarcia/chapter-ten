@@ -137,38 +137,45 @@ describe User do
     
   end
   
-  describe 'authenticate method' do
-    
-    it 'should exist' do
-      User.should respond_to(:authenticate)
+    describe 'authenticate method' do
+      
+      it 'should exist' do
+        User.should respond_to(:authenticate)
+      end
+      
+      it 'should return nill on email/password mismatch' do
+        User.authenticate(@attr[:email], 'wrongpass').should be_nil
+      end
+      
+      it 'should return nil for an email address with no user' do
+        User.authenticate('bare@foo.com', @attr[:password]).should be_nil
+      end
+      
+      it 'should return the user on email/password match' do
+        User.authenticate(@attr[:email], @attr[:password]).should == @user
+      end
     end
-    
-    it 'should return nill on email/password mismatch' do
-      User.authenticate(@attr[:email], 'wrongpass').should be_nil
+    ###
+    describe "admin attribute" do
+        #
+        before(:each) do
+            @user = User.create!(@attr)
+        end
+        ###
+        it "should respond to admin" do
+          @user.should responde_to(:admin)
+        end
+        ###
+        
+        it "should not be an admin by defaul" do
+          @user.should_not be_admin
+        end
+        ###
+        it "should be convertible to an admin" do
+          @user.toggle!(:admin)
+          @user.should be_admin
+        end
     end
-    
-    it 'should return nil for an email address with no user' do
-      User.authenticate('bare@foo.com', @attr[:password]).should be_nil
-    end
-    
-    it 'should return the user on email/password match' do
-      User.authenticate(@attr[:email], @attr[:password]).should == @user
-    end
-  end
   
 end
-
-
-# == Schema Information
-#
-# Table name: users
-#
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  email              :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
-#  encrypted_password :string(255)
-#  salt               :string(255)
-#
 
