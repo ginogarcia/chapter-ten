@@ -62,7 +62,7 @@ describe UsersController do
             it "should not have a delete links for non-admins" do
                 other_user = User.all.second
                 get :index
-                response.should have_selector("a", :href => user_path(other_user),
+                response.should_not have_selector("a", :href => user_path(other_user),
                                                     :content => "delete")
             end
         end

@@ -99,8 +99,6 @@ describe User do
     end
   end
   ####
-  
-
   describe 'password encryption' do
     
     before(:each) do
@@ -121,7 +119,6 @@ describe User do
     end
   end
   ####
-  
   describe "has_password? method" do
     before(:each) do
       @user = User.create!(@attr)
@@ -140,8 +137,7 @@ describe User do
      end
   end
   ####
-  
-    describe 'authenticate method' do
+  describe 'authenticate method' do
       
       it 'should exist' do
         User.should respond_to(:authenticate)
@@ -159,8 +155,8 @@ describe User do
         User.authenticate(@attr[:email], @attr[:password]).should == @user
       end
     end
-    ###
-    describe "admin attribute" do
+  ###
+  describe "admin attribute" do
         #
         before(:each) do
             @user = User.create!(@attr)
